@@ -15,6 +15,17 @@ const CampaignDetails = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState('');
   const [donators, setDonators] = useState([]);
+  const [copied, setCopied] = useState(false);
+
+  function copy() {
+    const el = document.createElement("input");
+    el.value = window.location.href;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
+    setCopied(true);
+  }
 
   const remainingDays = daysLeft(state.deadline);
 
@@ -124,6 +135,13 @@ const CampaignDetails = () => {
                 title="Fund Campaign"
                 styles="w-full bg-[#7f00ff]"
                 handleClick={handleDonate}
+              />
+
+              <CustomButton 
+                btnType="button"
+                title={!copied ? "Share Campaign" : "Copied!"}
+                styles="w-full mt-1 bg-[#7f00ff]"
+                handleClick={copy}
               />
             </div>
           </div>
